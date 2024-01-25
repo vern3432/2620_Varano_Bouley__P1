@@ -10,12 +10,12 @@ import java.io.InputStreamReader;
 public class DessertShoppe {
     DessertShoppe(String shoppe_name, String inventory_file) {
         try (
-            // File file = new File(this.getClass().getResource("/res.txt").getFile());
             BufferedReader br = new BufferedReader(new InputStreamReader(
                            this.getClass().getResourceAsStream("/" + inventory_file)))) {
             String line;
             while ((line = br.readLine()) != null) {
                 System.out.println(line);
+                //add meaningfull processing to file
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -24,13 +24,14 @@ public class DessertShoppe {
 
     String placeOrder(User input_User, String order_path) {
         try (
-            // File file = new File(this.getClass().getResource("/res.txt").getFile());
 
             BufferedReader br = new BufferedReader(new InputStreamReader(
                            this.getClass().getResourceAsStream("/" + order_path)))) {
             String line;
             while ((line = br.readLine()) != null) {
                 System.out.println(line);
+                //add meaningfull processing to file
+
             }
         } catch (IOException e) {
             e.printStackTrace();
