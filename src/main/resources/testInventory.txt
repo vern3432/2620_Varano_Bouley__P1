@@ -1,0 +1,11 @@
+10
+4, Candy, M & Ms, 2.99
+44, Candy, Baby Ruth, 3.50
+18, Candy, Runts, 2.25
+2, Candy, Snickers, 2.45
+21, Ice Cream, Vanilla, 2.50, 2
+98, Ice Cream, Vanilla, 3.00, 3
+1, Ice Cream, Chocolate, 2.50, 2
+7, Sundae, Chocolate, 3.75, 3, Peanut Butter
+43, Sundae, Vanilla, 3.75, 3, Peanut Butter
+13, Sundae, Chocolate, 3.50, 3, M & Ms
