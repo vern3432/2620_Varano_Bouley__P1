@@ -16,7 +16,6 @@ public class DessertShoppe {
 
 
 
-
     DessertShoppe(String shoppe_name, String inventory_file) {
         String proccessed=ProccessOrder(inventory_file);
 
@@ -61,6 +60,10 @@ public class DessertShoppe {
         }
 
         return("r");
+    }
+
+    public HashMap getInventory() {
+        return inventory;
     }
 
 }
