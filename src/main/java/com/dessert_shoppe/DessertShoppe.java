@@ -53,10 +53,10 @@ public class DessertShoppe {
       while (temp.size() < 6) {
         while ((temp.size() < 5)) {
           while ((temp.size() < 4)) {
-            temp.add("0");
-            while ((temp.size() < 4)) {
+            while ((temp.size() < 3)) {
               temp.add(null);
             }
+            temp.add("0");
           }
           temp.add("1");
         }

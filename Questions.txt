@@ -1,0 +1,6 @@
+Should it account for repeats in the inventory 
+should it delete from inventory if less than zero 
+should an exception be thrown if more is being ordred than is avalible. 
+        iF NOT, WHAT SHOULD HAPPEN 
+        Give them whats avaliable? Only sell avalible items? Null out the order as a whole? 
+
