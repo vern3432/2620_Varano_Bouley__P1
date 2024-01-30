@@ -8,8 +8,6 @@ public class Item {
     int quantity=0;
     String typetwo=null;
     
-
-
     public Item(String name, String typeOne, double price, int quantity, String typetwo) {
         this.name = name;
         this.typeOne = typeOne;
@@ -19,11 +17,44 @@ public class Item {
     }
             
 
+    public String getName() {
+        return name;
+    }
 
+
+
+
+    public String getTypeOne() {
+        return typeOne;
+    }
+
+
+
+
+    public double getPrice() {
+        return Price;
+    }
+
+
+
+
+    public int getQuantity() {
+        return quantity;
+    }
+
+
+
+
+    public String getTypetwo() {
+        return typetwo;
+    }
 
     @Override
     public String toString() {
-        return "Item []";
+        return "Item [name=" + name + ", typeOne=" + typeOne + ", Price=" + Price + ", quantity=" + quantity
+                + ", typetwo=" + typetwo + "]"+"\n\n";
     }
+
+
     
 }

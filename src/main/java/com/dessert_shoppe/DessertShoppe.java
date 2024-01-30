@@ -41,25 +41,27 @@ public class DessertShoppe {
 
   public void ProccessInv(String order_path) {
     ArrayList<String> readInfo = fileProcess(order_path);
-    System.out.println("ProcessInv Arraylist created");
     // int size_map=Integer.parseInt(readInfo.get(0))/ 0.75 + 1;
     //if key value exists, get the key i guess.
     //43, Sundae, Vanilla, 3.75, 3, Peanut Butter
     HashMap<Integer, Item> InvMap = new HashMap<Integer, Item>();
-    System.out.println("ProcessInv HashMap created");
-
     for (int i = 1; i < readInfo.size(); i++) {
       List<String> temp = new LinkedList<String>(
         Arrays.asList(readInfo.get(i).split(","))
       );
+      //For When qunaity and other flavour/type isnt included
       while (temp.size() < 6) {
         while ((temp.size() < 5)) {
+          while ((temp.size() < 4)) {
+            temp.add("0");
+            while ((temp.size() < 4)) {
+              temp.add(null);
+            }
+          }
           temp.add("1");
         }
         temp.add(null);
-        System.out.println("added null to item temp");
       }
-      System.out.println("adding" + temp.get(0));
       Item tempItem = new Item(
         temp.get(1),
         temp.get(2),
