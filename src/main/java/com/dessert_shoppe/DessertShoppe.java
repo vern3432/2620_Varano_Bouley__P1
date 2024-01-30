@@ -1,70 +1,90 @@
 package com.dessert_shoppe;
 
+import com.Item;
 import com.dessert_shoppe.User;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 //need to make these use one function 
-
+//has table size should always be prime, one less than a power of 2. 
 public class DessertShoppe {
-
+    String shoppe_name;
     HashMap inventory;
 
-
-
-
     DessertShoppe(String shoppe_name, String inventory_file) {
-        String proccessed=ProccessOrder(inventory_file);
+        this.shoppe_name=shoppe_name;
+        String proccessed = ProccessInv(inventory_file);
+
 
     }
 
     String placeOrder(User input_User, String order_path) {
-            String proccessed=ProccessOrder(order_path);
+        String proccessed = ProccessOrder(order_path);
+
+
 
         return ("reciept");
     }
 
-
     String ProccessOrder(String order_path) {
-        try (
+        ArrayList<String> readInfo=fileProcess(order_path);
 
-                BufferedReader br = new BufferedReader(new InputStreamReader(
-                        this.getClass().getResourceAsStream("/" + order_path)))) {
-            String line;
-            while ((line = br.readLine()) != null) {
-                System.out.println(line);
-                // add meaningfull processing to file
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
 
-        return("r");
+        return ("r");
     }
 
     String ProccessInv(String order_path) {
-        try (
+        ArrayList readInfo=fileProcess(order_path);
+        // int size_map=Integer.parseInt(readInfo.get(0))/ 0.75 + 1;
+        int size_map=100;
+        Map<Integer, Item> map = new HashMap<>(size_map);
 
-                BufferedReader br = new BufferedReader(new InputStreamReader(
-                        this.getClass().getResourceAsStream("/" + order_path)))) {
-            String line;
-            while ((line = br.readLine()) != null) {
-                System.out.println(line);
-                // add meaningfull processing to file
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
+        for(int i=1;i<readInfo.size();i++){
+                
+
         }
 
-        return("r");
+
+        return ("r");
     }
 
     public HashMap getInventory() {
         return inventory;
     }
+
+
+
+
+
+    //read resource stream files and return lines as Arraylist
+    public ArrayList fileProcess(String filename){
+        ArrayList<String> forReturn=new ArrayList<String>();
+        try (
+
+        BufferedReader br = new BufferedReader(new InputStreamReader(
+                this.getClass().getResourceAsStream("/" + filename)))) {
+    String line;
+
+    while ((line = br.readLine()) != null) {
+        forReturn.add((line));
+        // add meaningfull processing to file
+    }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+        
+        return forReturn;
+        
+}
+
 
 }
 
