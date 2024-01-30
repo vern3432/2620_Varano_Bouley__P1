@@ -39,9 +39,8 @@ public class DessertShoppe {
   String ProccessInv(String order_path) {
     ArrayList readInfo = fileProcess(order_path);
     // int size_map=Integer.parseInt(readInfo.get(0))/ 0.75 + 1;
-    int size_map = 100;
-    Map<Integer, Item> map = new HashMap<>(size_map);
-
+    //if key value exists, get the key i guess. 
+    Map<Integer, Item> map = new HashMap<>();
     for (int i = 1; i < readInfo.size(); i++) {}
 
     return ("r");
@@ -62,7 +61,6 @@ public class DessertShoppe {
       )
     ) {
       String line;
-
       while ((line = br.readLine()) != null) {
         forReturn.add((line));
         // add meaningfull processing to file
@@ -70,7 +68,6 @@ public class DessertShoppe {
     } catch (IOException e) {
       e.printStackTrace();
     }
-
     return forReturn;
   }
 }
