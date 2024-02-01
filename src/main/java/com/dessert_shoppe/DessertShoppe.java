@@ -115,7 +115,9 @@ public class DessertShoppe {
       while ((line = br.readLine()) != null) {
         forReturn.add((line));
         // add meaningfull processing to file
+
       }
+      br.close(); // Exit the file
     } catch (IOException e) {
       e.printStackTrace();
     }
