@@ -1,7 +1,7 @@
 package com;
 //43, Sundae, Vanilla, 3.75, 3, Peanut Butter
 
-public class Item {
+public  class Item {
     String name=null;
     String typeOne=null;
     double Price=0.0;
