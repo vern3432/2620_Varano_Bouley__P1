@@ -41,14 +41,21 @@ public class DessertShoppe {
 
   public void ProccessInv(String order_path) {
     ArrayList<String> readInfo = fileProcess(order_path);
-    // int size_map=Integer.parseInt(readInfo.get(0))/ 0.75 + 1;
-    //if key value exists, get the key i guess.
+
     //43, Sundae, Vanilla, 3.75, 3, Peanut Butter
     HashMap<Integer, Item> InvMap = new HashMap<Integer, Item>();
+
     for (int i = 1; i < readInfo.size(); i++) {
       List<String> temp = new LinkedList<String>(
         Arrays.asList(readInfo.get(i).split(","))
       );
+      int quant=1;
+
+      if(InvMap.containsKey(Integer.parseInt(temp.get(0)))){
+        quant=InvMap.get(Integer.parseInt(temp.get(0))).getQuant()+1;
+
+
+      }
       //For When qunaity and other flavour/type isnt included
       while (temp.size() < 6) {
         while ((temp.size() < 5)) {
@@ -67,7 +74,9 @@ public class DessertShoppe {
         temp.get(2),
         Double.parseDouble(temp.get(3).replace(" ", "")),
         Integer.parseInt(temp.get(4).replace(" ", "")),
-        temp.get(5)
+        temp.get(5),
+        quant
+        
       );
       InvMap.put(Integer.parseInt(temp.get(0)), tempItem);
 
@@ -103,3 +112,5 @@ public class DessertShoppe {
 }
 // Google is informing me that a good load factor is .70 to .75, so I am
 // thinking 1.3 times as large as the initial entry.Just round up if not an int
+    // int size_map=Integer.parseInt(readInfo.get(0))/ 0.75 + 1;
+    //if key value exists, get the key i guess.
