@@ -1,24 +1,25 @@
 package com.dessert_shoppe;
 
 public class User {
+
     double balance;
-    Card userPaymentMethod;
+    String name;
+    Card paymentMethod;
 
-    // User paying with a gift card
-    User(String name, GiftCard gcard) {
-        this.userPaymentMethod = gcard;
-
-    }
-
-    // User paying with a credit card
-    User(String name, CreditCard ccard) {
-        this.userPaymentMethod = ccard;
+    public User(String name, CreditCard creditCard) {
+        this.paymentMethod = creditCard;
+        this.name = name;
 
     }
 
+    public User(String name, GiftCard giftCard) {
+        this.paymentMethod = giftCard;
+        this.name = name;
+    }
+
+    @Override
     public String toString() {
-
-        return (" " + this.balance);
+        return name + " using " + paymentMethod + " with balance " + balance;
     }
 
 }

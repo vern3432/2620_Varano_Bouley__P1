@@ -2,14 +2,14 @@ package com.dessert_shoppe;
 
 public class CreditCard implements Card {
 
-    double balance;
+    double maxBalance;
 
-    public CreditCard(double balance) {
-        this.balance = balance;
+    public CreditCard(double maxBalalance) {
+        this.maxBalance = maxBalalance;
     }
 
     public double getBalance() {
-        return balance;
+        return maxBalance;
     }
 
     public void proccessTranscation() {

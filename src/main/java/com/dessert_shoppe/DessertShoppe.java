@@ -1,7 +1,6 @@
 package com.dessert_shoppe;
 
 import com.Item;
-import com.Item;
 import com.dessert_shoppe.User;
 import java.io.BufferedReader;
 import java.io.File;
@@ -37,8 +36,8 @@ public class DessertShoppe {
    */
   String placeOrder(User input_User, String order_path) {
     String proccessed = ProccessOrder(order_path);
+    return ProccessOrder(order_path);
 
-    return "reciept";
   }
 
   String ProccessOrder(String order_path) {
@@ -108,42 +107,25 @@ public class DessertShoppe {
    */
   public ArrayList<String> fileProcess(String filename) {
 
-    ArrayList<String> array = new ArrayList<>();
+    ArrayList<String> forReturn = new ArrayList<String>();
+    try (
+        BufferedReader br = new BufferedReader(
+            new InputStreamReader(
+                this.getClass().getResourceAsStream("/" + filename)))) {
+      String line;
+      while ((line = br.readLine()) != null) {
+        forReturn.add((line));
+        // add meaningfull processing to file
 
-    try (BufferedReader reader = new BufferedReader(new FileReader(filename))) {
-
-      String currentLine;
-      while (currentLine = reader.readLine() != null) {
-        reader.readLine();
-        array.add(currentLine);
       }
-    } catch (IOException exception) {
-      exception.getStackTrace();
+      br.close(); // Exit the file
+    } catch (IOException e) {
+      e.printStackTrace();
     }
-    reader.close();
-    return array;
+    return forReturn;
+
   }
-
 }
-
-/*
- * ArrayList<String> forReturn = new ArrayList<String>();
- * try (
- * BufferedReader br = new BufferedReader(
- * new InputStreamReader(
- * this.getClass().getResourceAsStream("/" + filename)))) {
- * String line;
- * while ((line = br.readLine()) != null) {
- * forReturn.add((line));
- * // add meaningfull processing to file
- * 
- * }
- * br.close(); // Exit the file
- * } catch (IOException e) {
- * e.printStackTrace();
- * }
- * return forReturn;
- */
 
 // Google is informing me that a good load factor is .70 to .75, so I am
 // thinking 1.3 times as large as the initial entry.Just round up if not an int
