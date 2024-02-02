@@ -1,6 +1,6 @@
 package com.dessert_shoppe;
 
-public class IceCream extends item {
+public class IceCream extends Item {
 
     String name;
     float price;

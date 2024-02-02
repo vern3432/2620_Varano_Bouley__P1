@@ -1,6 +1,6 @@
 package main.java.com.dessert_shoppe;
 
-public class Candy extends item {
+public class Candy extends Item {
 
     String name;
     float price;

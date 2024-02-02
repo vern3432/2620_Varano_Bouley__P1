@@ -1,8 +1,9 @@
 package com.dessert_shoppe;
 
 public interface Card {
-    
-     void proccess_transcation(float sub_value);
 
+     public double getBalance();
+
+     public void proccessTranscation();
 
 }

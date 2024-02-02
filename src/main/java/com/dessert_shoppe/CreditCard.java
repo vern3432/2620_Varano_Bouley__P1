@@ -1,14 +1,23 @@
 package com.dessert_shoppe;
 
-public class CreditCard implements Card{
+public class CreditCard implements Card {
 
-    public void proccess_transcation(float value){
+    double balance;
 
+    public CreditCard(double balance) {
+        this.balance = balance;
+    }
 
+    public double getBalance() {
+        return balance;
+    }
+
+    public void proccessTranscation() {
 
     }
-    CreditCard(double value){
 
-
+    @Override
+    public String toString() {
+        return "";
     }
 }

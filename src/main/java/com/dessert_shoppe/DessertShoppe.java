@@ -8,6 +8,7 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.nio.Buffer;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -37,7 +38,7 @@ public class DessertShoppe {
   String placeOrder(User input_User, String order_path) {
     String proccessed = ProccessOrder(order_path);
 
-    return ("reciept");
+    return "reciept";
   }
 
   String ProccessOrder(String order_path) {
@@ -66,7 +67,7 @@ public class DessertShoppe {
         quant = InvMap.get(Integer.parseInt(temp.get(0))).getQuant() + 1;
 
       }
-      // For When qunaity and other flavour/type isnt included
+      // For When qunaity and other flavour/type isn't included
       while (temp.size() < 6) {
         while ((temp.size() < 5)) {
           while ((temp.size() < 4)) {
@@ -106,24 +107,44 @@ public class DessertShoppe {
    * @return
    */
   public ArrayList<String> fileProcess(String filename) {
-    ArrayList<String> forReturn = new ArrayList<String>();
-    try (
-        BufferedReader br = new BufferedReader(
-            new InputStreamReader(
-                this.getClass().getResourceAsStream("/" + filename)))) {
-      String line;
-      while ((line = br.readLine()) != null) {
-        forReturn.add((line));
-        // add meaningfull processing to file
 
+    ArrayList<String> array = new ArrayList<>();
+
+    try (BufferedReader reader = new BufferedReader(new FileReader(filename))) {
+
+      String currentLine;
+      while (currentLine = reader.readLine() != null) {
+        reader.readLine();
+        array.add(currentLine);
       }
-      br.close(); // Exit the file
-    } catch (IOException e) {
-      e.printStackTrace();
+    } catch (IOException exception) {
+      exception.getStackTrace();
     }
-    return forReturn;
+    reader.close();
+    return array;
   }
+
 }
+
+/*
+ * ArrayList<String> forReturn = new ArrayList<String>();
+ * try (
+ * BufferedReader br = new BufferedReader(
+ * new InputStreamReader(
+ * this.getClass().getResourceAsStream("/" + filename)))) {
+ * String line;
+ * while ((line = br.readLine()) != null) {
+ * forReturn.add((line));
+ * // add meaningfull processing to file
+ * 
+ * }
+ * br.close(); // Exit the file
+ * } catch (IOException e) {
+ * e.printStackTrace();
+ * }
+ * return forReturn;
+ */
+
 // Google is informing me that a good load factor is .70 to .75, so I am
 // thinking 1.3 times as large as the initial entry.Just round up if not an int
 // int size_map=Integer.parseInt(readInfo.get(0))/ 0.75 + 1;
