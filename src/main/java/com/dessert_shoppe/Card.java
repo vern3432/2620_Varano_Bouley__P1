@@ -2,7 +2,9 @@ package com.dessert_shoppe;
 
 public interface Card {
     
-     void proccess_transcation(float sub_value);
+     void processTransaction(double amount);
+     String toString();
+     double getBalance();
 
 
 }
