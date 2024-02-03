@@ -1,13 +1,13 @@
 package com.dessert_shoppe;
 
 import com.Item;
-import com.Item;
 import com.dessert_shoppe.User;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.nio.Buffer;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -27,10 +27,17 @@ public class DessertShoppe {
     ProccessInv(inventory_file);
   }
 
+  /**
+   * Get an order from a specific user
+   * 
+   * @param input_User
+   * @param order_path
+   * @return
+   */
   String placeOrder(User input_User, String order_path) {
     String proccessed = ProccessOrder(order_path);
+    return ProccessOrder(order_path);
 
-    return ("reciept");
   }
 
   String ProccessOrder(String order_path) {
@@ -39,24 +46,27 @@ public class DessertShoppe {
     return ("r");
   }
 
+  /**
+   * Read a file for an inventory
+   * 
+   * @param order_path
+   */
   public void ProccessInv(String order_path) {
     ArrayList<String> readInfo = fileProcess(order_path);
 
-    //43, Sundae, Vanilla, 3.75, 3, Peanut Butter
+    // 43, Sundae, Vanilla, 3.75, 3, Peanut Butter
     HashMap<Integer, Item> InvMap = new HashMap<Integer, Item>();
 
     for (int i = 1; i < readInfo.size(); i++) {
       List<String> temp = new LinkedList<String>(
-        Arrays.asList(readInfo.get(i).split(","))
-      );
-      int quant=1;
+          Arrays.asList(readInfo.get(i).split(",")));
+      int quant = 1;
 
-      if(InvMap.containsKey(Integer.parseInt(temp.get(0)))){
-        quant=InvMap.get(Integer.parseInt(temp.get(0))).getQuant()+1;
-
+      if (InvMap.containsKey(Integer.parseInt(temp.get(0)))) {
+        quant = InvMap.get(Integer.parseInt(temp.get(0))).getQuant() + 1;
 
       }
-      //For When qunaity and other flavour/type isnt included
+      // For When qunaity and other flavour/type isn't included
       while (temp.size() < 6) {
         while ((temp.size() < 5)) {
           while ((temp.size() < 4)) {
@@ -70,13 +80,13 @@ public class DessertShoppe {
         temp.add(null);
       }
       Item tempItem = new Item(
-        temp.get(1),
-        temp.get(2),
-        Double.parseDouble(temp.get(3).replace(" ", "")),
-        Integer.parseInt(temp.get(4).replace(" ", "")),
-        temp.get(5),
-        quant
-        
+          temp.get(1),
+          temp.get(2),
+          Double.parseDouble(temp.get(3).replace(" ", "")),
+          Integer.parseInt(temp.get(4).replace(" ", "")),
+          temp.get(5),
+          quant
+
       );
       InvMap.put(Integer.parseInt(temp.get(0)), tempItem);
 
@@ -89,28 +99,35 @@ public class DessertShoppe {
     return inventory;
   }
 
-  //read resource stream files and return lines as Arraylist
+  /**
+   * Read resource stream files and return lines as Arraylist
+   * 
+   * @param filename
+   * @return
+   */
   public ArrayList<String> fileProcess(String filename) {
+
     ArrayList<String> forReturn = new ArrayList<String>();
     try (
-      BufferedReader br = new BufferedReader(
-        new InputStreamReader(
-          this.getClass().getResourceAsStream("/" + filename)
-        )
-      )
-    ) {
+        BufferedReader br = new BufferedReader(
+            new InputStreamReader(
+                this.getClass().getResourceAsStream("/" + filename)))) {
       String line;
       while ((line = br.readLine()) != null) {
         forReturn.add((line));
         // add meaningfull processing to file
+
       }
+      br.close(); // Exit the file
     } catch (IOException e) {
       e.printStackTrace();
     }
     return forReturn;
+
   }
 }
+
 // Google is informing me that a good load factor is .70 to .75, so I am
 // thinking 1.3 times as large as the initial entry.Just round up if not an int
-    // int size_map=Integer.parseInt(readInfo.get(0))/ 0.75 + 1;
-    //if key value exists, get the key i guess.
+// int size_map=Integer.parseInt(readInfo.get(0))/ 0.75 + 1;
+// if key value exists, get the key i guess.

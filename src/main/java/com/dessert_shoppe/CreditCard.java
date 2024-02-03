@@ -24,11 +24,7 @@ public class CreditCard implements Card {
         } else {
             System.out.println("Credit limit exceeded on Credit Card.");
         }
-    }
-
-    @Override
-    public String toString() {
-        return "Credit Card Balance: $" + balance;
+        return "";
     }
 }
 

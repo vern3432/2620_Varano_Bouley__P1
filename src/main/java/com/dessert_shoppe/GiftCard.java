@@ -25,4 +25,5 @@ public class GiftCard implements Card {
   public String toString() {
       return "Gift Card Balance: $" + balance;
   }
+
 }
