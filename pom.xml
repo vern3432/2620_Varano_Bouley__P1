@@ -12,11 +12,11 @@
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
     </properties>
-    <dependency>
+    <!-- <dependency>
     
 	<groupId>org.apidesign.bck2brwsr</groupId>
 	<artifactId>emul</artifactId>
 	<version>0.6</version>
-</dependency>
+</dependency> -->
 
 </project>
