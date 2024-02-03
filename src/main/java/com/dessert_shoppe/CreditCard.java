@@ -24,7 +24,6 @@ public class CreditCard implements Card {
         } else {
             System.out.println("Credit limit exceeded on Credit Card.");
         }
-        return "";
     }
 }
 

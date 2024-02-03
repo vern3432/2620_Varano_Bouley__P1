@@ -4,3 +4,4 @@ public interface Card {
      void processTransaction(double amount);
      String toString();
      double getBalance();
+}

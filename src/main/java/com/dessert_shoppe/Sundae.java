@@ -1,16 +1,16 @@
-package com.dessert_shoppe;
+// package com.dessert_shoppe;
 
-public class Sundae extends item {
+// public class Sundae extends item {
 
-    String name;
-    Float price;
-    int id;
+//     String name;
+//     Float price;
+//     int id;
+//     int number_scoops;
 
-    int number_scoops;
 
-    public Sundae(String name, Float price, int id, int number_scoops) {
-        super(name, price, id, number_scoops, topping);
+//     public Sundae(String name, Float price, int id, int number_scoops, String  topping) {
+//         super(name, price, id, number_scoops, topping);
 
-    }
+//     }
 
-}
+// }

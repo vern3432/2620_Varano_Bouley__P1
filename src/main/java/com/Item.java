@@ -43,7 +43,7 @@ public class Item {
     }
 
     public double getPrice() {
-        return Price;
+        return price;
     }
 
     public int getNumber_scoops() {
@@ -56,7 +56,7 @@ public class Item {
 
     @Override
     public String toString() {
-        return "Item [name=" + name + ", typeOne=" + typeOne + ", Price=" + Price + ", number_scoops=" + number_scoops
+        return "Item [name=" + name + ", typeOne=" + typeOne + ", Price=" + price + ", number_scoops=" + number_scoops
                 + ", topping=" + topping + ", quant=" + quant + "]" + "\n\n";
     }
 

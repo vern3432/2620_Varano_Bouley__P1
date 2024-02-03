@@ -1,13 +1,13 @@
-package main.java.com.dessert_shoppe;
+// package com.dessert_shoppe;
 
-public class Candy extends Item {
+// public class Candy extends Item {
 
-    String name;
-    float price;
-    int id;
+//     String name;
+//     float price;
+//     int id;
 
-    public Candy(String name, float price, int id) {
-        super(name, price, id);
-    }
+//     public Candy(String name, float price, int id) {
+//         super(name, price, id);
+//     }
 
-}
+// }
