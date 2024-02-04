@@ -9,7 +9,7 @@ import java.io.IOException;
 public class Main {
 
   public static void main(String[] args) throws FileNotFoundException {
-    // Create our new dessert shoppe, and give it an inventory to load
+    /* */ // Create our new dessert shoppe, and give it an inventory to load
     DessertShoppe shop = new DessertShoppe(
         "OOPsy Daisy Desserts",
         "testInventory.txt");
