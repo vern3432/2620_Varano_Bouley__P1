@@ -4,6 +4,7 @@ import com.Item;
 import com.dessert_shoppe.User;
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -34,16 +35,26 @@ public class DessertShoppe {
    * @param order_path
    * @return
    */
-  String placeOrder(User input_User, String order_path) {
-    String proccessed = ProccessOrder(order_path);
+  public String placeOrder(User input_User, String order_path) {
     return ProccessOrder(order_path);
-
   }
 
-  String ProccessOrder(String order_path) {
-    ArrayList<String> readInfo = fileProcess(order_path);
+  public String ProccessOrder(String order_path) {
+    ArrayList<String> itemsInOrder = new ArrayList<>();
+    try (
+        BufferedReader reader = new BufferedReader(
+            new InputStreamReader(this.getClass().getResourceAsStream("/" + order_path)))) {
+      String currentLine;
+      while ((currentLine = reader.readLine()) != null) {
+        itemsInOrder.add((currentLine));
 
-    return ("r");
+      }
+      reader.close();
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
+    return itemsInOrder.toString();
+
   }
 
   /**
@@ -55,10 +66,10 @@ public class DessertShoppe {
     ArrayList<String> readInfo = fileProcess(order_path);
 
     // 43, Sundae, Vanilla, 3.75, 3, Peanut Butter
-    HashMap<Integer, Item> InvMap = new HashMap<Integer, Item>();
+    HashMap<Integer, Item> InvMap = new HashMap<>();
 
     for (int i = 1; i < readInfo.size(); i++) {
-      List<String> temp = new LinkedList<String>(
+      LinkedList<String> temp = new LinkedList<>(
           Arrays.asList(readInfo.get(i).split(",")));
       int quant = 1;
 
@@ -68,15 +79,21 @@ public class DessertShoppe {
       }
       // For When qunaity and other flavour/type isn't included
       while (temp.size() < 6) {
+
         while ((temp.size() < 5)) {
+
           while ((temp.size() < 4)) {
+
             while ((temp.size() < 3)) {
               temp.add(null);
             }
+
             temp.add("0");
           }
+
           temp.add("1");
         }
+
         temp.add(null);
       }
       Item tempItem = new Item(
