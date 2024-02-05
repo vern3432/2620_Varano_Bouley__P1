@@ -40,21 +40,28 @@ public class DessertShoppe {
   }
 
   public String ProccessOrder(String order_path) {
-    ArrayList<String> itemsInOrder = new ArrayList<>();
-    try (
-        BufferedReader reader = new BufferedReader(
-            new InputStreamReader(this.getClass().getResourceAsStream("/" + order_path)))) {
+    try (BufferedReader reader = new BufferedReader(new InputStreamReader(
+        this.getClass().getResourceAsStream("/" + order_path)))) {
       String currentLine;
-      while ((currentLine = reader.readLine()) != null) {
-        itemsInOrder.add((currentLine));
 
+      while ((currentLine = reader.readLine()) != null) {
+        String[] part = currentLine.split(" ");
+        if (part.length == 2) {
+          int itemNumber = Integer.parseInt(part[0]); // the first number
+          int quantity = Integer.parseInt(part[1]); // the second number
+
+          System.out.println(inventory.get(itemNumber));
+          System.out.println(quantity);
+
+        } else {
+          System.out.println("Invalid currentLine in the order file: " + currentLine);
+        }
       }
-      reader.close();
-    } catch (IOException e) {
+    } catch (IOException | NumberFormatException e) {
       e.printStackTrace();
     }
-    return itemsInOrder.toString();
 
+    return "";
   }
 
   /**
@@ -107,7 +114,7 @@ public class DessertShoppe {
       );
       InvMap.put(Integer.parseInt(temp.get(0)), tempItem);
 
-      System.out.println("added" + temp.get(0));
+      System.out.println("added " + temp.get(0));
     }
     this.inventory = InvMap;
   }
@@ -129,11 +136,9 @@ public class DessertShoppe {
         BufferedReader br = new BufferedReader(
             new InputStreamReader(
                 this.getClass().getResourceAsStream("/" + filename)))) {
-      String line;
-      while ((line = br.readLine()) != null) {
-        forReturn.add((line));
-        // add meaningfull processing to file
-
+      String currentLine;
+      while ((currentLine = br.readLine()) != null) {
+        forReturn.add((currentLine));
       }
       br.close(); // Exit the file
     } catch (IOException e) {
