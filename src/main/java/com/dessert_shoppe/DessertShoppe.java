@@ -43,20 +43,39 @@ public class DessertShoppe {
     try (BufferedReader reader = new BufferedReader(new InputStreamReader(
         this.getClass().getResourceAsStream("/" + order_path)))) {
       String currentLine;
-
+      System.out.println(shoppe_name);
+      System.out.println("--------------------------------------------------");
+      ArrayList<Double> subtotal = new ArrayList<>();
+      Double sum = 0.00;
       while ((currentLine = reader.readLine()) != null) {
         String[] part = currentLine.split(" ");
+
+        // make sure that the first number is the item number and second is the quantity
         if (part.length == 2) {
           int itemNumber = Integer.parseInt(part[0]); // the first number
           int quantity = Integer.parseInt(part[1]); // the second number
+          Item item = inventory.get(itemNumber); // the current item that we are looking at
 
-          System.out.println(inventory.get(itemNumber));
-          System.out.println(quantity);
+          System.out.print(quantity + "x");
+          System.out.print(item.getName());
+          System.out.print("(@ " + item.getPrice() + ") .... $");
+          System.out.println(item.getPrice() * quantity);
+
+          subtotal.add(item.getPrice() * quantity);
 
         } else {
-          System.out.println("Invalid currentLine in the order file: " + currentLine);
+          System.out.println("Invalid line in the order file at: " + currentLine);
+          System.out.println("Must have format <itemNumber> <quantity>");
         }
+
       }
+
+      for (int i = 0; i < subtotal.size(); i++) {
+        sum = sum + subtotal.get(i);
+      }
+
+      System.out.println(sum);
+      System.out.println();
     } catch (IOException | NumberFormatException e) {
       e.printStackTrace();
     }
