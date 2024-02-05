@@ -25,7 +25,7 @@ public class DessertShoppe {
   HashMap<Integer, Item> inventory;
 
   private static final DecimalFormat df = new DecimalFormat("0.00");
-  private boolean trace = false;
+  private boolean trace = false; // trun tracing on/off
 
   DessertShoppe(String shoppe_name, String inventory_file) {
     this.shoppe_name = shoppe_name;
@@ -69,12 +69,12 @@ public class DessertShoppe {
           String name = item.getTypeOne(); // the item's name
           Double price = item.getPrice(); // the item's price
 
-          System.out.printf("%-15s", "  " + quantity + "x");
+          System.out.printf("%-15s", " " + quantity + "x");
           System.out.printf("%10s", name);
           System.out.print(" (@ " + df.format(price) + ") .... ");
-          System.out.printf("%-3s", "$ ");
-          System.out.println(df.format(price * quantity));
-          // System.out.printf("%1s", " 1");
+          System.out.print("$  ");
+          System.out.printf("%6s", df.format(price * quantity));
+          System.out.println();
 
           subtotal.add(price * quantity);
 
@@ -90,7 +90,7 @@ public class DessertShoppe {
       }
 
       System.out.printf("%40s", "Total .... ");
-      System.out.printf("%-1s", "$ ");
+      System.out.printf("%-4s", "$ ");
       System.out.print(df.format(sum));
       System.out.println("\n" + "\n");
 
