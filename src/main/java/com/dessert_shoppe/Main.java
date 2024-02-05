@@ -35,6 +35,6 @@ public class Main {
       System.out.println(users[i]);
     }
 
-    System.out.println("Inventory: \n" + shop.getInventory());
+    // System.out.println("Inventory: \n" + shop.getInventory());
   }
 }

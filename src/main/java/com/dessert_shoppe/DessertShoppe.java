@@ -9,6 +9,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.nio.Buffer;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -23,6 +24,9 @@ public class DessertShoppe {
   String shoppe_name;
   HashMap<Integer, Item> inventory;
 
+  private static final DecimalFormat df = new DecimalFormat("0.00");
+  private boolean trace = false;
+
   DessertShoppe(String shoppe_name, String inventory_file) {
     this.shoppe_name = shoppe_name;
     ProccessInv(inventory_file);
@@ -36,17 +40,24 @@ public class DessertShoppe {
    * @return
    */
   public String placeOrder(User input_User, String order_path) {
+
     return ProccessOrder(order_path);
   }
 
   public String ProccessOrder(String order_path) {
     try (BufferedReader reader = new BufferedReader(new InputStreamReader(
         this.getClass().getResourceAsStream("/" + order_path)))) {
-      String currentLine;
-      System.out.println(shoppe_name);
-      System.out.println("--------------------------------------------------");
+
+      // display receipt heading
+      System.out.println("          " + shoppe_name);
+      for (int i = 0; i < 50; i++) {
+        System.out.print("-");
+      }
+      System.out.println();
+
       ArrayList<Double> subtotal = new ArrayList<>();
       Double sum = 0.00;
+      String currentLine;
       while ((currentLine = reader.readLine()) != null) {
         String[] part = currentLine.split(" ");
 
@@ -55,13 +66,17 @@ public class DessertShoppe {
           int itemNumber = Integer.parseInt(part[0]); // the first number
           int quantity = Integer.parseInt(part[1]); // the second number
           Item item = inventory.get(itemNumber); // the current item that we are looking at
+          String name = item.getTypeOne(); // the item's name
+          Double price = item.getPrice(); // the item's price
 
-          System.out.print(quantity + "x");
-          System.out.print(item.getName());
-          System.out.print("(@ " + item.getPrice() + ") .... $");
-          System.out.println(item.getPrice() * quantity);
+          System.out.printf("%-15s", "  " + quantity + "x");
+          System.out.printf("%10s", name);
+          System.out.print(" (@ " + df.format(price) + ") .... ");
+          System.out.printf("%-3s", "$ ");
+          System.out.println(df.format(price * quantity));
+          // System.out.printf("%1s", " 1");
 
-          subtotal.add(item.getPrice() * quantity);
+          subtotal.add(price * quantity);
 
         } else {
           System.out.println("Invalid line in the order file at: " + currentLine);
@@ -74,8 +89,11 @@ public class DessertShoppe {
         sum = sum + subtotal.get(i);
       }
 
-      System.out.println(sum);
-      System.out.println();
+      System.out.printf("%40s", "Total .... ");
+      System.out.printf("%-1s", "$ ");
+      System.out.print(df.format(sum));
+      System.out.println("\n" + "\n");
+
     } catch (IOException | NumberFormatException e) {
       e.printStackTrace();
     }
@@ -133,7 +151,10 @@ public class DessertShoppe {
       );
       InvMap.put(Integer.parseInt(temp.get(0)), tempItem);
 
-      System.out.println("added " + temp.get(0));
+      if (trace) {
+        System.out.println("added " + temp.get(0));
+      }
+
     }
     this.inventory = InvMap;
   }
