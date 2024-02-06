@@ -42,6 +42,7 @@ public class DessertShoppe {
   public String placeOrder(User input_User, String order_path) {
 
     return ProccessOrder(order_path);
+
   }
 
   public String ProccessOrder(String order_path) {
@@ -58,29 +59,32 @@ public class DessertShoppe {
       ArrayList<Double> subtotal = new ArrayList<>();
       Double sum = 0.00;
       String currentLine;
+
       while ((currentLine = reader.readLine()) != null) {
         String[] part = currentLine.split(" ");
 
+        int itemNumber = Integer.parseInt(part[0]); // the first number
+        int quantity = Integer.parseInt(part[1]); // the second number
+        Item item = inventory.get(itemNumber); // the current item that we are looking at
+        String name = item.getTypeOne(); // the item's name
+        Double price = item.getPrice(); // the item's price
+        Double total = price * quantity; // total for the items
+
         // make sure that the first number is the item number and second is the quantity
         if (part.length == 2) {
-          int itemNumber = Integer.parseInt(part[0]); // the first number
-          int quantity = Integer.parseInt(part[1]); // the second number
-          Item item = inventory.get(itemNumber); // the current item that we are looking at
-          String name = item.getTypeOne(); // the item's name
-          Double price = item.getPrice(); // the item's price
 
           System.out.printf("%-15s", " " + quantity + "x");
-          System.out.printf("%10s", name);
+          System.out.printf("%11s", name);
           System.out.print(" (@ " + df.format(price) + ") .... ");
           System.out.print("$  ");
-          System.out.printf("%6s", df.format(price * quantity));
+          System.out.printf("%5s", df.format(price * quantity));
           System.out.println();
 
-          subtotal.add(price * quantity);
+          subtotal.add(total);
 
         } else {
-          System.out.println("Invalid line in the order file at: " + currentLine);
-          System.out.println("Must have format <itemNumber> <quantity>");
+          return "Invalid line in the order file at: " + currentLine + ". Must have format <itemNumber> <quantity>";
+
         }
 
       }
@@ -89,16 +93,17 @@ public class DessertShoppe {
         sum = sum + subtotal.get(i);
       }
 
-      System.out.printf("%40s", "Total .... ");
-      System.out.printf("%-4s", "$ ");
+      System.out.printf("%41s", "Total .... ");
+      System.out.printf("%-3s", "$ ");
       System.out.print(df.format(sum));
       System.out.println("\n" + "\n");
+      return "";
 
     } catch (IOException | NumberFormatException e) {
       e.printStackTrace();
+      return null;
     }
 
-    return "";
   }
 
   /**

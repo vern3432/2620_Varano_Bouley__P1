@@ -26,4 +26,3 @@ public class CreditCard implements Card {
         }
     }
 }
-
