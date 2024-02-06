@@ -40,12 +40,11 @@ public class DessertShoppe {
    * @return
    */
   public String placeOrder(User input_User, String order_path) {
-
-    return ProccessOrder(order_path);
+    return ProccessOrder(input_User, order_path);
 
   }
 
-  public String ProccessOrder(String order_path) {
+  public String ProccessOrder(User inputUser, String order_path) {
     try (BufferedReader reader = new BufferedReader(new InputStreamReader(
         this.getClass().getResourceAsStream("/" + order_path)))) {
 
@@ -97,6 +96,8 @@ public class DessertShoppe {
       System.out.printf("%-3s", "$ ");
       System.out.print(df.format(sum));
       System.out.println("\n" + "\n");
+
+      inputUser.setBalance(sum);
       return "";
 
     } catch (IOException | NumberFormatException e) {

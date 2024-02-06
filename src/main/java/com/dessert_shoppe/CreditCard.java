@@ -1,6 +1,7 @@
 package com.dessert_shoppe;
 
 public class CreditCard implements Card {
+
     private double balance;
     private final double maxBalance;
 
