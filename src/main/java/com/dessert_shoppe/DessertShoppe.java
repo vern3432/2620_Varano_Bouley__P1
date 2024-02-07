@@ -45,6 +45,7 @@ public class DessertShoppe {
   }
 
   public String ProccessOrder(User inputUser, String order_path) {
+    String receipt = "";
     try (BufferedReader reader = new BufferedReader(new InputStreamReader(
         this.getClass().getResourceAsStream("/" + order_path)))) {
 
@@ -72,15 +73,18 @@ public class DessertShoppe {
         // make sure that the first number is the item number and second is the quantity
         if (part.length == 2) {
 
+          // receipt = String.format("%-15s", " " + quantity + "x") +
+          // String.format("%11s", name) + " (@ " + df.format(price) + ") .... " + "$ " +
+          // String.format("%5s", df.format(total)) + "\n";
+
           System.out.printf("%-15s", " " + quantity + "x");
           System.out.printf("%11s", name);
-          System.out.print(" (@ " + df.format(price) + ") .... ");
+          System.out.printf(" (@ " + df.format(price) + ") .... ");
           System.out.print("$  ");
           System.out.printf("%5s", df.format(price * quantity));
           System.out.println();
 
           subtotal.add(total);
-
         } else {
           return "Invalid line in the order file at: " + currentLine + ". Must have format <itemNumber> <quantity>";
 
@@ -97,14 +101,16 @@ public class DessertShoppe {
       System.out.print(df.format(sum));
       System.out.println("\n" + "\n");
 
+      sum = Double.parseDouble(df.format(sum));
+
       inputUser.setBalance(sum);
-      return "";
 
     } catch (IOException | NumberFormatException e) {
       e.printStackTrace();
       return null;
     }
 
+    return "";
   }
 
   /**

@@ -1,9 +1,13 @@
 package com.dessert_shoppe;
 
+import java.text.DecimalFormat;
+
 public class User {
     private String name;
     private double balance;
     private Card userPaymentMethod;
+
+    private static final DecimalFormat df = new DecimalFormat("0.00");
 
     public User(String name, GiftCard gcard) {
         this.name = name;
@@ -54,7 +58,7 @@ public class User {
 
     @Override
     public String toString() {
-        return name + " using " + getPaymentType() + " with balance " + getBalance();
+        return name + " - using " + getPaymentType() + " with balance $" + getBalance();
     }
 
 }
