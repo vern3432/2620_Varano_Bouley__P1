@@ -40,20 +40,21 @@ public class DessertShoppe {
    * @return
    */
   public String placeOrder(User input_User, String order_path) {
-    return ProccessOrder(input_User, order_path);
+    return buildReceipt(input_User, order_path);
 
   }
 
-  public String ProccessOrder(User inputUser, String order_path) {
+  public String buildReceipt(User inputUser, String order_path) {
+    String receiptLine = "";
     String receipt = "";
+    String totalLine = "";
+    String receiptHeading = "          " + shoppe_name + "\n"
+        + "--------------------------------------------------" +
+        "\n";
+
     try (BufferedReader reader = new BufferedReader(new InputStreamReader(
         this.getClass().getResourceAsStream("/" + order_path)))) {
 
-      // display receipt heading
-      System.out.println("          " + shoppe_name);
-      for (int i = 0; i < 50; i++) {
-        System.out.print("-");
-      }
       System.out.println();
 
       ArrayList<Double> subtotal = new ArrayList<>();
@@ -71,46 +72,43 @@ public class DessertShoppe {
         Double total = price * quantity; // total for the items
 
         // make sure that the first number is the item number and second is the quantity
+
         if (part.length == 2) {
 
-          // receipt = String.format("%-15s", " " + quantity + "x") +
-          // String.format("%11s", name) + " (@ " + df.format(price) + ") .... " + "$ " +
-          // String.format("%5s", df.format(total)) + "\n";
-
-          System.out.printf("%-15s", " " + quantity + "x");
-          System.out.printf("%11s", name);
-          System.out.printf(" (@ " + df.format(price) + ") .... ");
-          System.out.print("$  ");
-          System.out.printf("%5s", df.format(price * quantity));
-          System.out.println();
+          receiptLine = String.format("%-15s", " " + quantity + "x") +
+              String.format("%11s", name) + " (@ " + df.format(price) + ") .... " + "$  " +
+              String.format("%5s", df.format(total)) + "\n";
 
           subtotal.add(total);
+
         } else {
           return "Invalid line in the order file at: " + currentLine + ". Must have format <itemNumber> <quantity>";
 
         }
-
+        receipt = receiptLine + receipt;
       }
 
       for (int i = 0; i < subtotal.size(); i++) {
         sum = sum + subtotal.get(i);
       }
 
-      System.out.printf("%41s", "Total .... ");
-      System.out.printf("%-3s", "$ ");
-      System.out.print(df.format(sum));
-      System.out.println("\n" + "\n");
+      totalLine = String.format("%41s", "Total .... ") +
+          String.format("%-3s", "$ ") +
+          df.format(sum) +
+          "\n";
 
       sum = Double.parseDouble(df.format(sum));
 
-      inputUser.setBalance(sum);
+      inputUser.setBalance(sum); // Set the users new balance
 
     } catch (IOException | NumberFormatException e) {
       e.printStackTrace();
       return null;
     }
 
-    return "";
+    receipt = receiptHeading + receipt + totalLine;
+
+    return receipt;
   }
 
   /**
