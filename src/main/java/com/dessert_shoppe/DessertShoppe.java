@@ -34,20 +34,23 @@ public class DessertShoppe {
 
   /**
    * Get an order from a specific user
-   * 
+   *
    * @param input_User
    * @param order_path
    * @return
    */
   public String placeOrder(User input_User, String order_path) {
     return ProccessOrder(input_User, order_path);
-
   }
 
   public String ProccessOrder(User inputUser, String order_path) {
-    try (BufferedReader reader = new BufferedReader(new InputStreamReader(
-        this.getClass().getResourceAsStream("/" + order_path)))) {
-
+    try (
+      BufferedReader reader = new BufferedReader(
+        new InputStreamReader(
+          this.getClass().getResourceAsStream("/" + order_path)
+        )
+      )
+    ) {
       // display receipt heading
       System.out.println("          " + shoppe_name);
       for (int i = 0; i < 50; i++) {
@@ -61,6 +64,7 @@ public class DessertShoppe {
 
       while ((currentLine = reader.readLine()) != null) {
         String[] part = currentLine.split(" ");
+        // /        if (inventory.containsKey(itemNumber)){
 
         int itemNumber = Integer.parseInt(part[0]); // the first number
         int quantity = Integer.parseInt(part[1]); // the second number
@@ -70,6 +74,12 @@ public class DessertShoppe {
         Double total = price * quantity; // total for the items
 
         // make sure that the first number is the item number and second is the quantity
+        if (quantity > item.getQuant()) {
+          quantity = item.getQuant();
+          inventory.get(itemNumber).setQuant(0);
+
+        }
+
         if (part.length == 2) {
 
           System.out.printf("%-15s", " " + quantity + "x");
@@ -78,14 +88,15 @@ public class DessertShoppe {
           System.out.print("$  ");
           System.out.printf("%5s", df.format(price * quantity));
           System.out.println();
-
+          
           subtotal.add(total);
-
         } else {
-          return "Invalid line in the order file at: " + currentLine + ". Must have format <itemNumber> <quantity>";
-
+          return (
+            "Invalid line in the order file at: " +
+            currentLine +
+            ". Must have format <itemNumber> <quantity>"
+          );
         }
-
       }
 
       for (int i = 0; i < subtotal.size(); i++) {
@@ -99,17 +110,15 @@ public class DessertShoppe {
 
       inputUser.setBalance(sum);
       return "";
-
     } catch (IOException | NumberFormatException e) {
       e.printStackTrace();
       return null;
     }
-
   }
 
   /**
    * Read a file for an inventory
-   * 
+   *
    * @param order_path
    */
   public void ProccessInv(String order_path) {
@@ -120,20 +129,17 @@ public class DessertShoppe {
 
     for (int i = 1; i < readInfo.size(); i++) {
       LinkedList<String> temp = new LinkedList<>(
-          Arrays.asList(readInfo.get(i).split(",")));
+        Arrays.asList(readInfo.get(i).split(","))
+      );
       int quant = 1;
 
       if (InvMap.containsKey(Integer.parseInt(temp.get(0)))) {
         quant = InvMap.get(Integer.parseInt(temp.get(0))).getQuant() + 1;
-
       }
       // For When qunaity and other flavour/type isn't included
       while (temp.size() < 6) {
-
         while ((temp.size() < 5)) {
-
           while ((temp.size() < 4)) {
-
             while ((temp.size() < 3)) {
               temp.add(null);
             }
@@ -147,20 +153,18 @@ public class DessertShoppe {
         temp.add(null);
       }
       Item tempItem = new Item(
-          temp.get(1),
-          temp.get(2),
-          Double.parseDouble(temp.get(3).replace(" ", "")),
-          Integer.parseInt(temp.get(4).replace(" ", "")),
-          temp.get(5),
-          quant
-
+        temp.get(1),
+        temp.get(2),
+        Double.parseDouble(temp.get(3).replace(" ", "")),
+        Integer.parseInt(temp.get(4).replace(" ", "")),
+        temp.get(5),
+        quant
       );
       InvMap.put(Integer.parseInt(temp.get(0)), tempItem);
 
       if (trace) {
         System.out.println("added " + temp.get(0));
       }
-
     }
     this.inventory = InvMap;
   }
@@ -171,17 +175,19 @@ public class DessertShoppe {
 
   /**
    * Read resource stream files and return lines as Arraylist
-   * 
+   *
    * @param filename
    * @return
    */
   public ArrayList<String> fileProcess(String filename) {
-
     ArrayList<String> forReturn = new ArrayList<String>();
     try (
-        BufferedReader br = new BufferedReader(
-            new InputStreamReader(
-                this.getClass().getResourceAsStream("/" + filename)))) {
+      BufferedReader br = new BufferedReader(
+        new InputStreamReader(
+          this.getClass().getResourceAsStream("/" + filename)
+        )
+      )
+    ) {
       String currentLine;
       while ((currentLine = br.readLine()) != null) {
         forReturn.add((currentLine));
@@ -191,10 +197,8 @@ public class DessertShoppe {
       e.printStackTrace();
     }
     return forReturn;
-
   }
 }
-
 // Google is informing me that a good load factor is .70 to .75, so I am
 // thinking 1.3 times as large as the initial entry.Just round up if not an int
 // int size_map=Integer.parseInt(readInfo.get(0))/ 0.75 + 1;
