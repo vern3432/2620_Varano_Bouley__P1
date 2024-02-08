@@ -78,10 +78,16 @@ public class DessertShoppe {
         Double total = price * quantity; // total for the items
 
         // make sure that the first number is the item number and second is the quantity
-        if (quantity > item.getQuant()) {
+        if (quantity >= item.getQuant()) {
           quantity = item.getQuant();
           inventory.get(itemNumber).setQuant(0);
+        }else{
+          inventory.get(itemNumber).setQuant( item.getQuant()-quantity);
+
+
+
         }
+
 
         if (part.length == 2) {
           receiptLine =
